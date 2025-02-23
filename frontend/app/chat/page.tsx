@@ -7,7 +7,7 @@ export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit, addToolResult } =
     useChat({
       maxSteps: 5,
-      api: "http://localhost:8080/stream-text",
+      api: "http://localhost:8080/chat/stream-text",
       // run client-side tools that are automatically executed:
       async onToolCall({ toolCall }: { toolCall: ToolCall<string, unknown> }) {
         if (toolCall.toolName === "getLocation") {
@@ -24,7 +24,6 @@ export default function Chat() {
 
   return (
     <>
-      hello there
       {messages?.map((message) => (
         <div key={message.id}>
           <strong>{`${message.role}: `}</strong>
