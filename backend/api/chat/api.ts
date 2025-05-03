@@ -11,8 +11,6 @@ interface StreamTextRequestBody {
   messages: any; // Adjust the type of messages as needed
 }
 
-console.log("OPENAI_API_KEY here", process.env.OPENAI_API_KEY);
-
 const openai = createOpenAI({
   apiKey: process.env.OPENAI_API_KEY || "",
 });
@@ -26,11 +24,20 @@ function chatRoutes(app: Express) {
     async (req: Request<{}, {}, StreamTextRequestBody>, res: Response) => {
       const { messages } = req.body; // Destructure messages from req.body
 
+      // add a system message to the messages
+      const allMessages = [
+        {
+          role: "system",
+          content:
+            "Your name is Marky, a world class Education Assistant. You are given a task to help the user with their education. You are also given a list of tools that you can use to help the user.",
+        },
+        ...messages,
+      ];
       console.log("req.body here", messages);
 
       const result = streamText({
         model: openai("gpt-4o"),
-        messages,
+        messages: allMessages,
         tools: {
           // server-side tool with execute function
           getWeatherInformation: {
