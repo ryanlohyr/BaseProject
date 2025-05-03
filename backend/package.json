@@ -5,12 +5,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.ts"
-
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@ai-sdk/google": "^1.2.14",
     "@ai-sdk/openai": "^1.1.13",
     "ai": "^4.1.45",
     "cors": "^2.8.5",

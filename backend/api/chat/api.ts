@@ -1,5 +1,8 @@
-import { Request, Response, Router, Express } from "express";
 import { createOpenAI } from "@ai-sdk/openai";
+import { Express, Request, Response, Router } from "express";
+// add gemini
+// import { google } from '@ai-sdk/google';
+
 import { streamText } from "ai";
 import { z } from "zod";
 require("dotenv").config();
@@ -15,6 +18,7 @@ const openai = createOpenAI({
   apiKey: process.env.OPENAI_API_KEY || "",
 });
 
+
 function chatRoutes(app: Express) {
   const router = Router();
 
@@ -28,8 +32,10 @@ function chatRoutes(app: Express) {
       const allMessages = [
         {
           role: "system",
-          content:
-            "Your name is Marky, a world class Education Assistant. You are given a task to help the user with their education. You are also given a list of tools that you can use to help the user.",
+          content: `
+            You are a world class Education Assistant. You are given a task to help the user with their education. You are also given a list of tools that you can use to help the user.
+            You always return your response in markdown format.
+            `,
         },
         ...messages,
       ];
